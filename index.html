@@ -1,0 +1,333 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@cloudifyjs/restful</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@cloudifyjs/restful</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @cloudifyjs/restful</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#cloudifyjsrestful" id="cloudifyjsrestful" style="color: inherit; text-decoration: none;">
+					<h1>@cloudifyjs/restful</h1>
+				</a>
+				<blockquote>
+					<p>FaaS agnostic restful microframework</p>
+				</blockquote>
+				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+					<h2>Install</h2>
+				</a>
+				<p><code>$ npm install @cloudifyjs/restful</code></p>
+				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+					<h2>Features</h2>
+				</a>
+				<ul>
+					<li>Provides cloud agnostic wrappers for RESTful Web Services.</li>
+					<li>Minimal configuration.</li>
+					<li>Supports <a href="https://restfulapi.net/hateoas/">HATEOAS</a> principle.</li>
+					<li>Supports request validation with <a href="https://github.com/hapijs/joi">@hapijs/joi</a>.</li>
+					<li>Supports <a href="https://restfulapi.net/">RESTful</a> principle.</li>
+					<li>Extensible: Plug you own hypster cloud provider as you need.</li>
+				</ul>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<a href="#fetch-a-single-document" id="fetch-a-single-document" style="color: inherit; text-decoration: none;">
+					<h3>Fetch a single document</h3>
+				</a>
+				<p><code>GET /todos/{id}</code></p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>).api
+
+<span class="hljs-built_in">module</span>.exports.get = api.document({
+  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> (path, query, headers) =&gt; {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">'123'</span>,
+      <span class="hljs-attr">text</span>: <span class="hljs-string">'My task'</span>,
+      <span class="hljs-attr">checked</span>: <span class="hljs-literal">true</span>
+    }
+  }
+})</code></pre>
+				<a href="#api-gateway-response" id="api-gateway-response" style="color: inherit; text-decoration: none;">
+					<h3>API Gateway Response:</h3>
+				</a>
+				<pre><code class="language-json">HTTP 200
+Content-Type: &#39;application/json&#39;
+
+{
+  &quot;id&quot;: &quot;123&quot;,
+  &quot;text&quot;: &quot;My task&quot;,
+  &quot;checked&quot;: true
+}</code></pre>
+				<a href="#fetch-a-collection" id="fetch-a-collection" style="color: inherit; text-decoration: none;">
+					<h3>Fetch a collection</h3>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>).api
+
+<span class="hljs-built_in">module</span>.exports.get = api.collection({
+  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> (path, query, headers) =&gt; {
+    <span class="hljs-keyword">return</span> [
+      {
+        <span class="hljs-attr">id</span>: <span class="hljs-string">'1'</span>,
+        <span class="hljs-attr">text</span>: <span class="hljs-string">'My task 1'</span>,
+        <span class="hljs-attr">checked</span>: <span class="hljs-literal">true</span>
+      },
+      {
+        <span class="hljs-attr">id</span>: <span class="hljs-string">'2'</span>,
+        <span class="hljs-attr">text</span>: <span class="hljs-string">'My task 2'</span>,
+        <span class="hljs-attr">checked</span>: <span class="hljs-literal">true</span>
+      }
+    ]
+  }
+})</code></pre>
+				<a href="#api-gateway-response-1" id="api-gateway-response-1" style="color: inherit; text-decoration: none;">
+					<h3>API Gateway Response:</h3>
+				</a>
+				<pre><code class="language-json">HTTP 200
+Content-Type: &#39;application/json&#39;
+
+[
+  {
+    &quot;id&quot;: &quot;1&quot;,
+    &quot;text&quot;: &quot;My task 1&quot;,
+    &quot;checked&quot;: true
+  },
+  {
+    &quot;id&quot;: &quot;2&quot;,
+    &quot;text&quot;: &quot;My task 2&quot;,
+    &quot;checked&quot;: true
+  }
+]</code></pre>
+				<a href="#using-joi-validation" id="using-joi-validation" style="color: inherit; text-decoration: none;">
+					<h3>Using Joi validation</h3>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Joi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@hapi/joi'</span>)
+<span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>).api
+
+<span class="hljs-built_in">module</span>.exports.get = api.document({
+  <span class="hljs-attr">validators</span>: {
+    <span class="hljs-attr">path</span>: Joi.object({
+      <span class="hljs-attr">id</span>: Joi.string().required()
+    })
+  },
+  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> (path, query, headers) =&gt; {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">text</span>: <span class="hljs-string">'My task'</span>,
+      <span class="hljs-attr">checked</span>: <span class="hljs-literal">true</span>
+    }
+  }
+})</code></pre>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>This source code is licensed under the MIT license found in
+				the <a href="https://github.com/cloudifyjs/restful/blob/master/LICENSE">LICENSE.txt</a> file.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/unsupportedmediatypeerror.html" class="tsd-kind-icon">Unsupported<wbr>Media<wbr>Type<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/apilink.html" class="tsd-kind-icon">Api<wbr>Link</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/validationoptions.html" class="tsd-kind-icon">Validation<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/wrapperconfig.html" class="tsd-kind-icon">Wrapper<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#autodetect" class="tsd-kind-icon">auto<wbr>Detect</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#badrequest" class="tsd-kind-icon">bad<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#bodydecorator" class="tsd-kind-icon">body<wbr>Decorator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#bodydeserializer" class="tsd-kind-icon">body<wbr>Deserializer</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#collection" class="tsd-kind-icon">collection</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#document" class="tsd-kind-icon">document</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#eventhandlerfactory" class="tsd-kind-icon">event<wbr>Handler<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#headervalue" class="tsd-kind-icon">header<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#internalservererror" class="tsd-kind-icon">internal<wbr>Server<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#noop" class="tsd-kind-icon">noop</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#ok" class="tsd-kind-icon">ok</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#requesthandler" class="tsd-kind-icon">request<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#translate" class="tsd-kind-icon">translate</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#unsupportedmediatype" class="tsd-kind-icon">unsupported<wbr>Media<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#unsupportedmethod" class="tsd-kind-icon">unsupported<wbr>Method</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#validaterequest" class="tsd-kind-icon">validate<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#api" class="tsd-kind-icon">api</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#logger" class="tsd-kind-icon">logger</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#vendors" class="tsd-kind-icon">vendors</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
