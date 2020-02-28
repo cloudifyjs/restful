@@ -1,6 +1,6 @@
 {
   "name": "@cloudifyjs/restful",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "FaaS agnostic restful microframework",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
