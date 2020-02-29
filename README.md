@@ -1,5 +1,7 @@
 # @cloudifyjs/restful
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/cloudifyjs/restful.svg)](https://greenkeeper.io/)
+
 > FaaS agnostic restful microframework
 
 ## Install
