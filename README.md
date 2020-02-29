@@ -9,7 +9,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/cloudifyjs/restful.svg)](https://greenkeeper.io/)
 [![Known Vulnerabilities](https://snyk.io/test/github/cloudifyjs/restful/badge.svg?targetFile=package.json)](https://snyk.io/test/github/cloudifyjs/restful?targetFile=package.json)
 
-The @cloudifyjs/restful is a microframework that aims to make the development of RESTful Web Services based on FaaS free from cloud providers implementations. Develop first and choose the cloud provider later!
+The @cloudifyjs/restful is a microframework that aims to make the development of RESTful Web Services on top of FaaS free from cloud providers implementations. Develop first and choose the cloud provider later!
 
 ## Install
 
