@@ -9,11 +9,19 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/cloudifyjs/restful.svg)](https://greenkeeper.io/)
 [![Known Vulnerabilities](https://snyk.io/test/github/cloudifyjs/restful/badge.svg?targetFile=package.json)](https://snyk.io/test/github/cloudifyjs/restful?targetFile=package.json)
 
-FaaS agnostic restful microframework
+The @cloudifyjs/restful is a microframework that aims to make the development of RESTful Web Services based on FaaS free from cloud providers implementations. Develop first and choose the cloud provider later!
 
 ## Install
 
-```$ npm install @cloudifyjs/restful```
+Install with npm:
+```
+npm install @cloudifyjs/restful --save
+```
+
+Install with yarn:
+```
+yarn add @cloudifyjs/restful
+```
 
 ## Features
 
@@ -24,7 +32,7 @@ FaaS agnostic restful microframework
 * Supports [RESTful](https://restfulapi.net/) principle.
 * Extensible: Plug you own hypster cloud provider as you need.
 
-## Usage
+## Examples
 
 ### Fetch a single document
 
