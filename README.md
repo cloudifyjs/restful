@@ -1,5 +1,10 @@
 # @cloudifyjs/restful
 
+[![CircleCI](https://circleci.com/gh/cloudifyjs/restful.svg?style=svg)](https://circleci.com/gh/cloudifyjs/restful)
+![npm](https://img.shields.io/npm/v/@cloudifyjs/restful)
+![npm](https://img.shields.io/npm/dw/@cloudifyjs/restful)
+[![dependencies Status](https://david-dm.org/diegotremper/aws-serverless-restful-wrapper/status.svg)](https://david-dm.org/diegotremper/aws-serverless-restful-wrapper)
+[![devDependencies Status](https://david-dm.org/cloudifyjs/restful/dev-status.svg)](https://david-dm.org/cloudifyjs/restful?type=dev)
 [![codecov](https://codecov.io/gh/cloudifyjs/restful/branch/master/graph/badge.svg)](https://codecov.io/gh/cloudifyjs/restful)
 [![Greenkeeper badge](https://badges.greenkeeper.io/cloudifyjs/restful.svg)](https://greenkeeper.io/)
 [![Known Vulnerabilities](https://snyk.io/test/github/cloudifyjs/restful/badge.svg?targetFile=package.json)](https://snyk.io/test/github/cloudifyjs/restful?targetFile=package.json)
