@@ -2,6 +2,7 @@
 
 [![codecov](https://codecov.io/gh/cloudifyjs/restful/branch/master/graph/badge.svg)](https://codecov.io/gh/cloudifyjs/restful)
 [![Greenkeeper badge](https://badges.greenkeeper.io/cloudifyjs/restful.svg)](https://greenkeeper.io/)
+[![Known Vulnerabilities](https://snyk.io/test/github/cloudifyjs/restful/badge.svg?targetFile=package.json)](https://snyk.io/test/github/cloudifyjs/restful?targetFile=package.json)
 
 FaaS agnostic restful microframework
 
