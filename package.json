@@ -5,7 +5,10 @@
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "https://github.com/cloudifyjs/restful",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudifyjs/restful.git"
+  },
   "license": "MIT",
   "keywords": [
     "faas",
@@ -112,5 +115,9 @@
     "exclude": [
       "**/*.spec.js"
     ]
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/cloudifyjs/restful/issues"
+  },
+  "homepage": "https://github.com/cloudifyjs/restful#readme"
 }
