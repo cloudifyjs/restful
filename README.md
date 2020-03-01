@@ -143,7 +143,17 @@ module.exports.get = api.document({
   - `queryStringParameters` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request queryStringParameters.
 
 ## Logging
-TBD
+By default, all logging messages are surpressed. You can optionally activate them as follows:
+
+```javascript
+const { api, logger } = require('@cloudifyjs/restful')
+
+logger.debug = console.debug
+logger.error = console.error
+logger.info = console.info
+logger.log = console.log
+logger.warn = console.warn
+```
 
 ## Custom cloud provider
 TBD

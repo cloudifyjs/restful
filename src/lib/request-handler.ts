@@ -1,6 +1,7 @@
 import * as response from './response';
 import { validateRequest } from './validation';
 import { bodyDeserializer, UnsupportedMediaTypeError } from './request';
+import { logger } from './logger';
 
 export const requestHandler = (config, request) => {
   config.decorator = config.decorator || response.bodyDecorator;
@@ -40,10 +41,12 @@ export const requestHandler = (config, request) => {
             resolve(response.ok(funcResult));
           })
           .catch(error => {
+            logger.log('An error was caught from target function', error)
             resolve(response.internalServerError(error));
           });
       })
       .catch(error => {
+        logger.log('the request did not pass the validations, returning invalid request', error)
         resolve(
           response.badRequest({
             message: 'Invalid request',
