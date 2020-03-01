@@ -35,6 +35,8 @@ yarn add @cloudifyjs/restful
 
 ## Examples
 
+[Examples](https://github.com/cloudifyjs/restful-examples)
+
 ### api.document(request)
 
 ```javascript
