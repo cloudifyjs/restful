@@ -67,13 +67,21 @@
 				<a href="#cloudifyjsrestful" id="cloudifyjsrestful" style="color: inherit; text-decoration: none;">
 					<h1>@cloudifyjs/restful</h1>
 				</a>
-				<blockquote>
-					<p>FaaS agnostic restful microframework</p>
-				</blockquote>
+				<p><a href="https://circleci.com/gh/cloudifyjs/restful"><img src="https://circleci.com/gh/cloudifyjs/restful.svg?style=svg" alt="CircleCI"></a>
+					<img src="https://img.shields.io/npm/v/@cloudifyjs/restful" alt="npm">
+					<img src="https://img.shields.io/npm/dw/@cloudifyjs/restful" alt="npm">
+					<a href="https://david-dm.org/diegotremper/aws-serverless-restful-wrapper"><img src="https://david-dm.org/diegotremper/aws-serverless-restful-wrapper/status.svg" alt="dependencies Status"></a>
+					<a href="https://david-dm.org/cloudifyjs/restful?type=dev"><img src="https://david-dm.org/cloudifyjs/restful/dev-status.svg" alt="devDependencies Status"></a>
+					<a href="https://codecov.io/gh/cloudifyjs/restful"><img src="https://codecov.io/gh/cloudifyjs/restful/branch/master/graph/badge.svg" alt="codecov"></a>
+					<a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/cloudifyjs/restful.svg" alt="Greenkeeper badge"></a>
+				<a href="https://snyk.io/test/github/cloudifyjs/restful?targetFile=package.json"><img src="https://snyk.io/test/github/cloudifyjs/restful/badge.svg?targetFile=package.json" alt="Known Vulnerabilities"></a></p>
+				<p>The @cloudifyjs/restful is a microframework that aims to make the development of RESTful Web Services on top of FaaS free from cloud providers implementations. Develop first and choose the cloud provider later!</p>
 				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
 					<h2>Install</h2>
 				</a>
-				<p><code>$ npm install @cloudifyjs/restful</code></p>
+				<p>Install with npm:</p>
+				<pre><code><span class="hljs-built_in">npm</span> install @cloudifyjs/restful --save</code></pre><p>Install with yarn:</p>
+				<pre><code>yarn <span class="hljs-keyword">add</span><span class="bash"> @cloudifyjs/restful</span></code></pre>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
 				</a>
@@ -84,94 +92,98 @@
 					<li>Supports request validation with <a href="https://github.com/hapijs/joi">@hapijs/joi</a>.</li>
 					<li>Supports <a href="https://restfulapi.net/">RESTful</a> principle.</li>
 					<li>Extensible: Plug you own hypster cloud provider as you need.</li>
+					<li>async/await oriented / No Callback Hell.</li>
 				</ul>
-				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
-					<h2>Usage</h2>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
 				</a>
-				<a href="#fetch-a-single-document" id="fetch-a-single-document" style="color: inherit; text-decoration: none;">
-					<h3>Fetch a single document</h3>
+				<a href="#apidocumentrequest" id="apidocumentrequest" style="color: inherit; text-decoration: none;">
+					<h3>api.document(request)</h3>
 				</a>
-				<p><code>GET /todos/{id}</code></p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>).api
 
+<span class="hljs-comment">// GET /cars/{id}</span>
 <span class="hljs-built_in">module</span>.exports.get = api.document({
-  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> (path, query, headers) =&gt; {
-    <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'123'</span>,
-      <span class="hljs-attr">text</span>: <span class="hljs-string">'My task'</span>,
-      <span class="hljs-attr">checked</span>: <span class="hljs-literal">true</span>
-    }
-  }
-})</code></pre>
-				<a href="#api-gateway-response" id="api-gateway-response" style="color: inherit; text-decoration: none;">
-					<h3>API Gateway Response:</h3>
-				</a>
+  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> (request) =&gt; ({
+    <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'Model S'</span>,
+    <span class="hljs-attr">vendor</span>: <span class="hljs-string">'Tesla'</span>
+  })
+})
+</code></pre>
+				<p><strong>Response:</strong></p>
 				<pre><code class="language-json">HTTP 200
-Content-Type: &#39;application/json&#39;
+Content-Type: application/json
 
 {
-  &quot;id&quot;: &quot;123&quot;,
-  &quot;text&quot;: &quot;My task&quot;,
-  &quot;checked&quot;: true
+  &quot;id&quot;: 1,
+  &quot;name&quot;: &quot;Model S&quot;,
+  &quot;vendor&quot;: &quot;Tesla&quot;
 }</code></pre>
-				<a href="#fetch-a-collection" id="fetch-a-collection" style="color: inherit; text-decoration: none;">
-					<h3>Fetch a collection</h3>
+				<p>Wow! The above example demostrates how to response a document by wrappping a business function that returns a simple JSON.</p>
+				<a href="#apicollectionrequest" id="apicollectionrequest" style="color: inherit; text-decoration: none;">
+					<h3>api.collection(request)</h3>
 				</a>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>).api
 
-<span class="hljs-built_in">module</span>.exports.get = api.collection({
-  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> (path, query, headers) =&gt; {
-    <span class="hljs-keyword">return</span> [
-      {
-        <span class="hljs-attr">id</span>: <span class="hljs-string">'1'</span>,
-        <span class="hljs-attr">text</span>: <span class="hljs-string">'My task 1'</span>,
-        <span class="hljs-attr">checked</span>: <span class="hljs-literal">true</span>
-      },
-      {
-        <span class="hljs-attr">id</span>: <span class="hljs-string">'2'</span>,
-        <span class="hljs-attr">text</span>: <span class="hljs-string">'My task 2'</span>,
-        <span class="hljs-attr">checked</span>: <span class="hljs-literal">true</span>
-      }
-    ]
-  }
-})</code></pre>
-				<a href="#api-gateway-response-1" id="api-gateway-response-1" style="color: inherit; text-decoration: none;">
-					<h3>API Gateway Response:</h3>
-				</a>
+<span class="hljs-comment">// GET /cars</span>
+<span class="hljs-built_in">module</span>.exports.list = api.collection({
+  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> (request) =&gt; ([
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'Model S'</span>,
+      <span class="hljs-attr">vendor</span>: <span class="hljs-string">'Tesla'</span>
+    },
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'Model 3'</span>,
+      <span class="hljs-attr">vendor</span>: <span class="hljs-string">'Tesla'</span>
+    }
+  ])
+})
+</code></pre>
+				<p><strong>Response:</strong></p>
 				<pre><code class="language-json">HTTP 200
-Content-Type: &#39;application/json&#39;
+Content-Type: application/json
 
 [
   {
-    &quot;id&quot;: &quot;1&quot;,
-    &quot;text&quot;: &quot;My task 1&quot;,
-    &quot;checked&quot;: true
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Model S&quot;,
+    &quot;vendor&quot;: &quot;Tesla&quot;
   },
   {
-    &quot;id&quot;: &quot;2&quot;,
-    &quot;text&quot;: &quot;My task 2&quot;,
-    &quot;checked&quot;: true
+    &quot;id&quot;: 2,
+    &quot;name&quot;: &quot;Model 3&quot;,
+    &quot;vendor&quot;: &quot;Tesla&quot;
   }
 ]</code></pre>
-				<a href="#using-joi-validation" id="using-joi-validation" style="color: inherit; text-decoration: none;">
-					<h3>Using Joi validation</h3>
+				<p>The @cloudifyjs/restful provides the methods <code>api.document</code> and <code>api.collection</code> to exposes your RESTful endpoints. These methods handle requests received from the cloud provider (like aws, google, etc.) and deliver to the <code>target</code> function a normalized request object.</p>
+				<a href="#options" id="options" style="color: inherit; text-decoration: none;">
+					<h3>Options</h3>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Joi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@hapi/joi'</span>)
-<span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>).api
-
-<span class="hljs-built_in">module</span>.exports.get = api.document({
-  <span class="hljs-attr">validators</span>: {
-    <span class="hljs-attr">path</span>: Joi.object({
-      <span class="hljs-attr">id</span>: Joi.string().required()
-    })
-  },
-  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> (path, query, headers) =&gt; {
-    <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">text</span>: <span class="hljs-string">'My task'</span>,
-      <span class="hljs-attr">checked</span>: <span class="hljs-literal">true</span>
-    }
-  }
-})</code></pre>
+				<ul>
+					<li><code>consumes</code> <code>&lt;String[]&gt;</code> <em>(Optional)</em>: list of allowed values in Content-Type header, current only supports JSON formats (e.g. <code>application/x-javascript</code>, <code>text/x-json</code>). Default: <code>application/json</code></li>
+					<li><code>vendor</code> <code>&lt;String&gt;</code> <em>(Optional)</em>: When specified, will not try automatically detect the cloud environment, currently the build-in vendors are <code>aws</code> and <code>google</code>.</li>
+					<li><code>decorator</code> <code>&lt;Function&gt;</code> <em>(Optional)</em>: used to provide custom response modification before serialize the <code>target</code> function response.</li>
+					<li><code>links</code> <code>&lt;Object&gt;</code> <em>(Optional)</em>: When provided will add links (HATEOAS) for each document returned.</li>
+					<li><code>target</code> <code>&lt;Function&gt;</code> <em>(Required)</em>: Indicates the function that will handle the incoming normalized requests.</li>
+					<li><code>validators</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em>: Optional validation to be applied before the incoming request reach the target function, when invalid a <code>HTTP 400</code> is returned.<ul>
+							<li><code>body</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em> Joi Schema to validate the request body.</li>
+							<li><code>headers</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em> Joi Schema to validate the request headers.</li>
+							<li><code>pathParameters</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em> Joi Schema to validate the request pathParameters.</li>
+							<li><code>queryStringParameters</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em> Joi Schema to validate the request queryStringParameters.</li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#logging" id="logging" style="color: inherit; text-decoration: none;">
+					<h3>Logging</h3>
+				</a>
+				<p>TBD</p>
+				<a href="#custom-cloud-provider" id="custom-cloud-provider" style="color: inherit; text-decoration: none;">
+					<h3>Custom cloud provider</h3>
+				</a>
+				<p>TBD</p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
@@ -194,6 +206,9 @@ Content-Type: &#39;application/json&#39;
 					</li>
 					<li class=" tsd-kind-interface tsd-is-not-exported">
 						<a href="interfaces/apilink.html" class="tsd-kind-icon">Api<wbr>Link</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/request.html" class="tsd-kind-icon">Request</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-not-exported">
 						<a href="interfaces/validationoptions.html" class="tsd-kind-icon">Validation<wbr>Options</a>
