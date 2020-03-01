@@ -31,102 +31,100 @@ yarn add @cloudifyjs/restful
 * Supports request validation with [@hapijs/joi](https://github.com/hapijs/joi).
 * Supports [RESTful](https://restfulapi.net/) principle.
 * Extensible: Plug you own hypster cloud provider as you need.
+* async/await oriented / No Callback Hell.
 
 ## Examples
 
-### Fetch a single document
-
-```GET /todos/{id}```
+### api.document(request)
 
 ```javascript
 const api = require('@cloudifyjs/restful').api
 
+// GET /cars/{id}
 module.exports.get = api.document({
-  target: async (path, query, headers) => {
-    return {
-      id: '123',
-      text: 'My task',
-      checked: true
-    }
-  }
+  target: async (request) => ({
+    id: 1,
+    name: 'Model S',
+    vendor: 'Tesla'
+  })
 })
-```
 
-### API Gateway Response:
+```
+**Response:**
 ```json
 HTTP 200
-Content-Type: 'application/json'
+Content-Type: application/json
 
 {
-  "id": "123",
-  "text": "My task",
-  "checked": true
+  "id": 1,
+  "name": "Model S",
+  "vendor": "Tesla"
 }
 ```
 
-### Fetch a collection
+Wow! The above example demostrates how to response a document by wrappping a business function that returns a simple JSON.
+
+### api.collection(request)
 
 ```javascript
 const api = require('@cloudifyjs/restful').api
 
-module.exports.get = api.collection({
-  target: async (path, query, headers) => {
-    return [
-      {
-        id: '1',
-        text: 'My task 1',
-        checked: true
-      },
-      {
-        id: '2',
-        text: 'My task 2',
-        checked: true
-      }
-    ]
-  }
+// GET /cars
+module.exports.list = api.collection({
+  target: async (request) => ([
+    {
+      id: 1,
+      name: 'Model S',
+      vendor: 'Tesla'
+    },
+    {
+      id: 2,
+      name: 'Model 3',
+      vendor: 'Tesla'
+    }
+  ])
 })
+
 ```
-
-### API Gateway Response:
-
+**Response:**
 ```json
 HTTP 200
-Content-Type: 'application/json'
+Content-Type: application/json
 
 [
   {
-    "id": "1",
-    "text": "My task 1",
-    "checked": true
+    "id": 1,
+    "name": "Model S",
+    "vendor": "Tesla"
   },
   {
-    "id": "2",
-    "text": "My task 2",
-    "checked": true
+    "id": 2,
+    "name": "Model 3",
+    "vendor": "Tesla"
   }
 ]
 ```
 
-### Using Joi validation
+The @cloudifyjs/restful provides the methods `api.document` and `api.collection` to exposes your RESTful endpoints. These methods handle requests received from the cloud provider (like aws, google, etc.) and deliver to the `target` function a normalized request object.
 
-```javascript
-const Joi = require('@hapi/joi')
-const api = require('@cloudifyjs/restful').api
+### Options
 
-module.exports.get = api.document({
-  validators: {
-    path: Joi.object({
-      id: Joi.string().required()
-    })
-  },
-  target: async (path, query, headers) => {
-    return {
-      text: 'My task',
-      checked: true
-    }
-  }
-})
-```
+- `consumes` `<String[]>` *(Optional)*: list of allowed values in Content-Type header, current only supports JSON formats (e.g. `application/x-javascript`, `text/x-json`). Default: `application/json`
+- `vendor` `<String>` *(Optional)*: When specified, will not try automatically detect the cloud environment, currently the build-in vendors are `aws` and `google`.
+- `decorator` `<Function>` *(Optional)*: used to provide custom response modification before serialize the `target` function response.
+- `links` `<Object>` *(Optional)*: When provided will add links (HATEOAS) for each document returned.
+- `target` `<Function>` *(Required)*: Indicates the function that will handle the incoming normalized requests.
+- `validators` `<Joi.ObjectSchema>` *(Optional)*: Optional validation to be applied before the incoming request reach the target function, when invalid a `HTTP 400` is returned.
+  - `body` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request body.
+  - `headers` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request headers.
+  - `pathParameters` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request pathParameters.
+  - `queryStringParameters` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request queryStringParameters.
+
+### Logging
+TBD
+
+### Custom cloud provider
+TBD
 
 ## License
 

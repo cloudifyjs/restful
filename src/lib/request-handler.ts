@@ -34,12 +34,7 @@ export const requestHandler = (config, request) => {
     validateRequest(request, config.validators)
       .then(() => {
         config
-          .target(
-            request.pathParameters,
-            request.queryParameters,
-            request.headers,
-            request.body
-          )
+          .target(request)
           .then(funcResult => {
             funcResult = config.decorator(funcResult, config.links, request);
             resolve(response.ok(funcResult));
