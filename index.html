@@ -70,7 +70,7 @@
 				<p><a href="https://circleci.com/gh/cloudifyjs/restful"><img src="https://circleci.com/gh/cloudifyjs/restful.svg?style=svg" alt="CircleCI"></a>
 					<img src="https://img.shields.io/npm/v/@cloudifyjs/restful" alt="npm">
 					<img src="https://img.shields.io/npm/dw/@cloudifyjs/restful" alt="npm">
-					<a href="https://david-dm.org/diegotremper/aws-serverless-restful-wrapper"><img src="https://david-dm.org/diegotremper/aws-serverless-restful-wrapper/status.svg" alt="dependencies Status"></a>
+					<a href="https://david-dm.org/cloudifyjs/restful"><img src="https://david-dm.org/cloudifyjs/restful/status.svg" alt="dependencies Status"></a>
 					<a href="https://david-dm.org/cloudifyjs/restful?type=dev"><img src="https://david-dm.org/cloudifyjs/restful/dev-status.svg" alt="devDependencies Status"></a>
 					<a href="https://codecov.io/gh/cloudifyjs/restful"><img src="https://codecov.io/gh/cloudifyjs/restful/branch/master/graph/badge.svg" alt="codecov"></a>
 					<a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/cloudifyjs/restful.svg" alt="Greenkeeper badge"></a>
@@ -159,6 +159,25 @@ Content-Type: application/json
   }
 ]</code></pre>
 				<p>The @cloudifyjs/restful provides the methods <code>api.document</code> and <code>api.collection</code> to exposes your RESTful endpoints. These methods handle requests received from the cloud provider (like aws, google, etc.) and deliver to the <code>target</code> function a normalized request object.</p>
+				<a href="#using-joi-validation" id="using-joi-validation" style="color: inherit; text-decoration: none;">
+					<h3>Using Joi validation</h3>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Joi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@hapi/joi'</span>)
+<span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>).api
+
+<span class="hljs-built_in">module</span>.exports.get = api.document({
+  <span class="hljs-attr">validators</span>: {
+    <span class="hljs-attr">pathParameters</span>: Joi.object({
+      <span class="hljs-attr">id</span>: Joi.string().required()
+    })
+  },
+  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> (request) =&gt; {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">text</span>: <span class="hljs-string">'My task'</span>,
+      <span class="hljs-attr">checked</span>: <span class="hljs-literal">true</span>
+    }
+  }
+})</code></pre>
 				<a href="#options" id="options" style="color: inherit; text-decoration: none;">
 					<h3>Options</h3>
 				</a>
@@ -177,11 +196,11 @@ Content-Type: application/json
 					</li>
 				</ul>
 				<a href="#logging" id="logging" style="color: inherit; text-decoration: none;">
-					<h3>Logging</h3>
+					<h2>Logging</h2>
 				</a>
 				<p>TBD</p>
 				<a href="#custom-cloud-provider" id="custom-cloud-provider" style="color: inherit; text-decoration: none;">
-					<h3>Custom cloud provider</h3>
+					<h2>Custom cloud provider</h2>
 				</a>
 				<p>TBD</p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
