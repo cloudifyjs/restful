@@ -107,6 +107,26 @@ Content-Type: application/json
 
 The @cloudifyjs/restful provides the methods `api.document` and `api.collection` to exposes your RESTful endpoints. These methods handle requests received from the cloud provider (like aws, google, etc.) and deliver to the `target` function a normalized request object.
 
+### Using Joi validation
+```javascript
+const Joi = require('@hapi/joi')
+const api = require('@cloudifyjs/restful').api
+
+module.exports.get = api.document({
+  validators: {
+    pathParameters: Joi.object({
+      id: Joi.string().required()
+    })
+  },
+  target: async (request) => {
+    return {
+      text: 'My task',
+      checked: true
+    }
+  }
+})
+```
+
 ### Options
 
 - `consumes` `<String[]>` *(Optional)*: list of allowed values in Content-Type header, current only supports JSON formats (e.g. `application/x-javascript`, `text/x-json`). Default: `application/json`
@@ -120,10 +140,10 @@ The @cloudifyjs/restful provides the methods `api.document` and `api.collection`
   - `pathParameters` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request pathParameters.
   - `queryStringParameters` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request queryStringParameters.
 
-### Logging
+## Logging
 TBD
 
-### Custom cloud provider
+## Custom cloud provider
 TBD
 
 ## License
