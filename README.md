@@ -201,7 +201,7 @@ module.exports.hello = api.document({
 })
 ```
 
-If you are implementing any vendor not supported yet by `@cloudifyjs/restful`, feel free to create a pull request and add it to the core.
+If you are implementing any vendor not supported yet by `@cloudifyjs/restful`, feel free to create a pull request and suggest it built-in vendors.
 
 ## License
 
