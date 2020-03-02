@@ -203,6 +203,18 @@ module.exports.hello = api.document({
 
 If you are implementing any vendor not supported yet by `@cloudifyjs/restful`, feel free to create a pull request and suggest it built-in vendors.
 
+## Supported Node Versions
+
+`@cloudifyjs/restful` aims to support the Node.js LTS.
+
+| Node Release  | Supported |
+| :--:     | :---: | 
+| 13.x | **Yes**   | 
+| 12.x | **Yes**   | 
+| 11.x | **Yes**   | 
+| 10.x | **Yes** | 
+| 8.x  | **Yes** | 
+
 ## License
 
 This source code is licensed under the MIT license found in
