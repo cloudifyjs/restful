@@ -162,7 +162,7 @@ logger.warn = console.warn
 ```javascript
 'use strict';
 
-const { api, vendors } = require('@cloudifyjs/restful')
+const { api, vendors, logger } = require('@cloudifyjs/restful')
 
 // declare a new supported vendor 'azure'
 vendors.azure = (...args) => {
@@ -184,10 +184,10 @@ vendors.azure = (...args) => {
         headers: result.headers,
         status: result.statusCode
       };
-      context.done(null);
+      context.done();
     },
     reject: error => {
-      logger.log(error);
+      logger.error(error);
       context.done(error);
     }
   };
