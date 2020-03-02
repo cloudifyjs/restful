@@ -26,6 +26,7 @@ yarn add @cloudifyjs/restful
 ## Features
 
 * Provides cloud agnostic wrappers for RESTful Web Services.
+  * Built-in request handlers (`aws` and `google`).
 * Minimal configuration.
 * Supports [HATEOAS](https://restfulapi.net/hateoas/) principle.
 * Supports request validation with [@hapijs/joi](https://github.com/hapijs/joi).
@@ -155,8 +156,52 @@ logger.log = console.log
 logger.warn = console.warn
 ```
 
-## Custom cloud provider
-TBD
+## Custom cloud provider implementation
+
+### Example
+```javascript
+'use strict';
+
+const { api, vendors } = require('@cloudifyjs/restful')
+
+// declare a new supported vendor 'azure'
+vendors.azure = (...args) => {
+  const context = args[0];
+  const req = args[1];
+
+  return {
+    request: {
+      body: req.rawBody,
+      headers: req.headers,
+      httpMethod: req.method,
+      path: req.originalUrl,
+      pathParameters: req.params,
+      queryParameters: req.query
+    },
+    resolve: result => {
+      context.res = {
+        body: result.body,
+        headers: result.headers,
+        status: result.statusCode
+      };
+      context.done(null);
+    },
+    reject: error => {
+      logger.log(error);
+      context.done(error);
+    }
+  };
+}
+
+module.exports.hello = api.document({
+  vendor: 'azure', // inform to API that HTTP request will be normilized by 'azure' function
+  target: async () => {
+    return { message: `Hello World!` }
+  }
+})
+```
+
+If you are implementing any vendor not supported yet by `@cloudifyjs/restful`, feel free to create a pull request and add it to the core.
 
 ## License
 
