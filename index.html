@@ -86,7 +86,10 @@
 					<h2>Features</h2>
 				</a>
 				<ul>
-					<li>Provides cloud agnostic wrappers for RESTful Web Services.</li>
+					<li>Provides cloud agnostic wrappers for RESTful Web Services.<ul>
+							<li>Built-in request handlers (<code>aws</code> and <code>google</code>).</li>
+						</ul>
+					</li>
 					<li>Minimal configuration.</li>
 					<li>Supports <a href="https://restfulapi.net/hateoas/">HATEOAS</a> principle.</li>
 					<li>Supports request validation with <a href="https://github.com/hapijs/joi">@hapijs/joi</a>.</li>
@@ -207,10 +210,52 @@ logger.error = <span class="hljs-built_in">console</span>.error
 logger.info = <span class="hljs-built_in">console</span>.info
 logger.log = <span class="hljs-built_in">console</span>.log
 logger.warn = <span class="hljs-built_in">console</span>.warn</code></pre>
-				<a href="#custom-cloud-provider" id="custom-cloud-provider" style="color: inherit; text-decoration: none;">
-					<h2>Custom cloud provider</h2>
+				<a href="#custom-cloud-provider-implementation" id="custom-cloud-provider-implementation" style="color: inherit; text-decoration: none;">
+					<h2>Custom cloud provider implementation</h2>
 				</a>
-				<p>TBD</p>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h3>Example</h3>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">const</span> { api, vendors } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>)
+
+<span class="hljs-comment">// declare a new supported vendor 'azure'</span>
+vendors.azure = <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> context = args[<span class="hljs-number">0</span>];
+  <span class="hljs-keyword">const</span> req = args[<span class="hljs-number">1</span>];
+
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">request</span>: {
+      <span class="hljs-attr">body</span>: req.rawBody,
+      <span class="hljs-attr">headers</span>: req.headers,
+      <span class="hljs-attr">httpMethod</span>: req.method,
+      <span class="hljs-attr">path</span>: req.originalUrl,
+      <span class="hljs-attr">pathParameters</span>: req.params,
+      <span class="hljs-attr">queryParameters</span>: req.query
+    },
+    <span class="hljs-attr">resolve</span>: <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+      context.res = {
+        <span class="hljs-attr">body</span>: result.body,
+        <span class="hljs-attr">headers</span>: result.headers,
+        <span class="hljs-attr">status</span>: result.statusCode
+      };
+      context.done(<span class="hljs-literal">null</span>);
+    },
+    <span class="hljs-attr">reject</span>: <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+      logger.log(error);
+      context.done(error);
+    }
+  };
+}
+
+<span class="hljs-built_in">module</span>.exports.hello = api.document({
+  <span class="hljs-attr">vendor</span>: <span class="hljs-string">'azure'</span>, <span class="hljs-comment">// inform to API that HTTP request will be normilized by 'azure' function</span>
+  <span class="hljs-attr">target</span>: <span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">message</span>: <span class="hljs-string">`Hello World!`</span> }
+  }
+})</code></pre>
+				<p>If you are implementing any vendor not supported yet by <code>@cloudifyjs/restful</code>, feel free to create a pull request and add it to the core.</p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
