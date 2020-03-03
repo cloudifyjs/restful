@@ -40,6 +40,8 @@ yarn add @cloudifyjs/restful
 
 ### api.document(request)
 
+> From restfulapi.net: *A document resource is a singular concept that is akin to an object instance or database record. In REST, you can view it as a single resource inside resource collection. A document’s state representation typically includes both fields with values and links to other related resources.*
+
 ```javascript
 const api = require('@cloudifyjs/restful').api
 
@@ -68,6 +70,8 @@ Content-Type: application/json
 Wow! The above example demostrates how to response a document by wrappping a business function that returns a simple JSON.
 
 ### api.collection(request)
+
+> From restfulapi.net: *A collection resource is a server-managed directory of resources. Clients may propose new resources to be added to a collection. However, it is up to the collection to choose to create a new resource or not. A collection resource chooses what it wants to contain and also decides the URIs of each contained resource.*
 
 ```javascript
 const api = require('@cloudifyjs/restful').api
