@@ -83,8 +83,10 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="request.html#body" class="tsd-kind-icon">body</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="request.html#headers" class="tsd-kind-icon">headers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="request.html#httpmethod" class="tsd-kind-icon">http<wbr>Method</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="request.html#path" class="tsd-kind-icon">path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="request.html#pathparameters" class="tsd-kind-icon">path<wbr>Parameters</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="request.html#querystringparameters" class="tsd-kind-icon">query<wbr>String<wbr>Parameters</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="request.html#queryparameters" class="tsd-kind-icon">query<wbr>Parameters</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,7 +100,7 @@
 					<div class="tsd-signature tsd-kind-icon">body<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/c1e016a/src/lib/config.ts#L16">lib/config.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/a239357/src/lib/config.ts#L18">lib/config.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -108,7 +110,7 @@
 					<div class="tsd-signature tsd-kind-icon">headers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/c1e016a/src/lib/config.ts#L17">lib/config.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/a239357/src/lib/config.ts#L19">lib/config.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -119,6 +121,26 @@
 							</li>
 						</ul>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="httpmethod" class="tsd-anchor"></a>
+					<h3>http<wbr>Method</h3>
+					<div class="tsd-signature tsd-kind-icon">http<wbr>Method<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/a239357/src/lib/config.ts#L20">lib/config.ts:20</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="path" class="tsd-anchor"></a>
+					<h3>path</h3>
+					<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/a239357/src/lib/config.ts#L21">lib/config.ts:21</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="pathparameters" class="tsd-anchor"></a>
@@ -126,7 +148,7 @@
 					<div class="tsd-signature tsd-kind-icon">path<wbr>Parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/c1e016a/src/lib/config.ts#L18">lib/config.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/a239357/src/lib/config.ts#L22">lib/config.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -139,12 +161,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="querystringparameters" class="tsd-anchor"></a>
-					<h3>query<wbr>String<wbr>Parameters</h3>
-					<div class="tsd-signature tsd-kind-icon">query<wbr>String<wbr>Parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<a name="queryparameters" class="tsd-anchor"></a>
+					<h3>query<wbr>Parameters</h3>
+					<div class="tsd-signature tsd-kind-icon">query<wbr>Parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/c1e016a/src/lib/config.ts#L19">lib/config.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/cloudifyjs/restful/blob/a239357/src/lib/config.ts#L23">lib/config.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -186,20 +208,29 @@
 								<a href="request.html#headers" class="tsd-kind-icon">headers</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="request.html#httpmethod" class="tsd-kind-icon">http<wbr>Method</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="request.html#path" class="tsd-kind-icon">path</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="request.html#pathparameters" class="tsd-kind-icon">path<wbr>Parameters</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="request.html#querystringparameters" class="tsd-kind-icon">query<wbr>String<wbr>Parameters</a>
+								<a href="request.html#queryparameters" class="tsd-kind-icon">query<wbr>Parameters</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-is-not-exported">
+					<li class=" tsd-kind-interface">
 						<a href="validationoptions.html" class="tsd-kind-icon">Validation<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="wrapperconfig.html" class="tsd-kind-icon">Wrapper<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#outputtype" class="tsd-kind-icon">Output<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#autodetect" class="tsd-kind-icon">auto<wbr>Detect</a>
@@ -228,11 +259,20 @@
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#internalservererror" class="tsd-kind-icon">internal<wbr>Server<wbr>Error</a>
 					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#nocontent" class="tsd-kind-icon">no<wbr>Content</a>
+					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="../globals.html#noop" class="tsd-kind-icon">noop</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="../globals.html#notfound" class="tsd-kind-icon">not<wbr>Found</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="../globals.html#ok" class="tsd-kind-icon">ok</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#preconditionfailed" class="tsd-kind-icon">precondition<wbr>Failed</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#requesthandler" class="tsd-kind-icon">request<wbr>Handler</a>

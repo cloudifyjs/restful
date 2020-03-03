@@ -192,10 +192,10 @@ Content-Type: application/json
 					<li><code>links</code> <code>&lt;Object&gt;</code> <em>(Optional)</em>: When provided will add links (HATEOAS) for each document returned.</li>
 					<li><code>target</code> <code>&lt;Function&gt;</code> <em>(Required)</em>: Indicates the function that will handle the incoming normalized requests.</li>
 					<li><code>validators</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em>: Optional validation to be applied before the incoming request reach the target function, when invalid a <code>HTTP 400</code> is returned.<ul>
-							<li><code>body</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em> Joi Schema to validate the request body.</li>
-							<li><code>headers</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em> Joi Schema to validate the request headers.</li>
-							<li><code>pathParameters</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em> Joi Schema to validate the request pathParameters.</li>
-							<li><code>queryStringParameters</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em> Joi Schema to validate the request queryStringParameters.</li>
+							<li><code>body</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em>; Joi Schema to validate the request body.</li>
+							<li><code>headers</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em>: Joi Schema to validate the request headers.</li>
+							<li><code>pathParameters</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em>: Joi Schema to validate the request pathParameters.</li>
+							<li><code>queryParameters</code> <code>&lt;Joi.ObjectSchema&gt;</code> <em>(Optional)</em>: Joi Schema to validate the request queryParameters.</li>
 						</ul>
 					</li>
 				</ul>
@@ -255,7 +255,46 @@ vendors.azure = <span class="hljs-function">(<span class="hljs-params">...args</
     <span class="hljs-keyword">return</span> { <span class="hljs-attr">message</span>: <span class="hljs-string">`Hello World!`</span> }
   }
 })</code></pre>
-				<p>If you are implementing any vendor not supported yet by <code>@cloudifyjs/restful</code>, feel free to create a pull request and add it to the core.</p>
+				<p>If you are implementing any vendor not supported yet by <code>@cloudifyjs/restful</code>, feel free to create a pull request and suggest it built-in vendors.</p>
+				<a href="#supported-node-versions" id="supported-node-versions" style="color: inherit; text-decoration: none;">
+					<h2>Supported Node Versions</h2>
+				</a>
+				<p><code>@cloudifyjs/restful</code> aims to support the Node.js LTS.</p>
+				<table>
+					<thead>
+						<tr>
+							<th align="center">Node Release</th>
+							<th align="center">Supported</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td align="center">13.x</td>
+							<td align="center"><strong>Yes</strong></td>
+						</tr>
+						<tr>
+							<td align="center">12.x</td>
+							<td align="center"><strong>Yes</strong></td>
+						</tr>
+						<tr>
+							<td align="center">11.x</td>
+							<td align="center"><strong>Yes</strong></td>
+						</tr>
+						<tr>
+							<td align="center">10.x</td>
+							<td align="center"><strong>Yes</strong></td>
+						</tr>
+						<tr>
+							<td align="center">8.x</td>
+							<td align="center"><strong>Yes</strong></td>
+						</tr>
+				</tbody></table>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>Please see the <a href="./docs">files in the <code>docs</code> directory</a>:</p>
+				<ul>
+					<li><a href="./docs/01-HTTP-Status-Codes.md">HTTP Status Codes</a></li>
+				</ul>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
@@ -282,11 +321,14 @@ vendors.azure = <span class="hljs-function">(<span class="hljs-params">...args</
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/request.html" class="tsd-kind-icon">Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-not-exported">
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/validationoptions.html" class="tsd-kind-icon">Validation<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/wrapperconfig.html" class="tsd-kind-icon">Wrapper<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#outputtype" class="tsd-kind-icon">Output<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#autodetect" class="tsd-kind-icon">auto<wbr>Detect</a>
@@ -315,11 +357,20 @@ vendors.azure = <span class="hljs-function">(<span class="hljs-params">...args</
 					<li class=" tsd-kind-function">
 						<a href="globals.html#internalservererror" class="tsd-kind-icon">internal<wbr>Server<wbr>Error</a>
 					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#nocontent" class="tsd-kind-icon">no<wbr>Content</a>
+					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#noop" class="tsd-kind-icon">noop</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#notfound" class="tsd-kind-icon">not<wbr>Found</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#ok" class="tsd-kind-icon">ok</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#preconditionfailed" class="tsd-kind-icon">precondition<wbr>Failed</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#requesthandler" class="tsd-kind-icon">request<wbr>Handler</a>
