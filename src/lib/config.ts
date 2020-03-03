@@ -1,10 +1,10 @@
 import Joi from '@hapi/joi';
 
-interface ValidationOptions {
+export interface ValidationOptions {
   body?: Joi.ObjectSchema;
   headers?: Joi.ObjectSchema;
   pathParameters?: Joi.ObjectSchema;
-  queryStringParameters?: Joi.ObjectSchema;
+  queryParameters?: Joi.ObjectSchema;
 }
 
 interface ApiLink {
@@ -12,11 +12,15 @@ interface ApiLink {
   type: string;
 }
 
+export type OutputType = 'document' | 'collection';
+
 export interface Request {
   body?: any;
   headers: { [name: string]: string };
+  httpMethod: string;
+  path: string;
   pathParameters: { [name: string]: string };
-  queryStringParameters: { [name: string]: string };
+  queryParameters: { [name: string]: string };
 }
 
 export interface WrapperConfig {
@@ -28,6 +32,7 @@ export interface WrapperConfig {
     request: any
   ) => any;
   links?: { [name: string]: ApiLink };
+  outputType?: OutputType;
   supportedMethods?: string[];
   target: (request: Request) => Promise<any>;
   validators?: ValidationOptions;

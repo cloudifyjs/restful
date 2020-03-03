@@ -184,7 +184,7 @@ test.cb('it should return an HTTP 400 (invalid body)', t => {
   );
 });
 
-test.cb('it should return an HTTP 400 (validation error)', t => {
+test.cb('it should return an HTTP 412 (validation error)', t => {
   const targetResult = {};
   const handler = document({
     target: async () => targetResult,
@@ -225,7 +225,7 @@ test.cb('it should return an HTTP 400 (validation error)', t => {
         headers: {
           'Content-Type': 'application/json'
         },
-        statusCode: 400
+        statusCode: 412
       });
       t.end();
     }

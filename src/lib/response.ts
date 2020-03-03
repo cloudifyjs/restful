@@ -3,7 +3,7 @@ import template from 'es6-template-strings';
 export const bodyDecorator = (result: any, links, request) => {
   const isObject = typeof result === 'object' && result !== null;
   const isArray = isObject && Array.isArray(result);
-  const keyLinks = Object.keys(links);
+  const keyLinks = Object.keys(links || {});
   const hasLinks = keyLinks.length > 0;
 
   // TODO handle es6-template-strings errors
@@ -65,6 +65,16 @@ export const badRequest = (error): any => {
   };
 };
 
+export const preconditionFailed = (error): any => {
+  return {
+    body: JSON.stringify(error),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    statusCode: 412
+  };
+};
+
 export const ok = (payload: any): any => {
   return {
     body: JSON.stringify(payload),
@@ -83,5 +93,25 @@ export const internalServerError = (error: any): any => {
     },
 
     statusCode: 500
+  };
+};
+
+export const notFound = (): any => {
+  return {
+    body: '',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    statusCode: 404
+  };
+};
+
+export const noContent = (): any => {
+  return {
+    body: '',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    statusCode: 204
   };
 };

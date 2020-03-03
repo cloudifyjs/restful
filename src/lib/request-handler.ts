@@ -1,9 +1,10 @@
 import * as response from './response';
 import { validateRequest } from './validation';
 import { bodyDeserializer, UnsupportedMediaTypeError } from './request';
+import { WrapperConfig, Request } from './config';
 import { logger } from './logger';
 
-export const requestHandler = (config, request) => {
+export const requestHandler = (config: WrapperConfig, request) => {
   config.decorator = config.decorator || response.bodyDecorator;
 
   return new Promise(resolve => {
@@ -32,26 +33,44 @@ export const requestHandler = (config, request) => {
       }
     }
 
-    validateRequest(request, config.validators)
-      .then(() => {
-        config
-          .target(request)
-          .then(funcResult => {
-            funcResult = config.decorator(funcResult, config.links, request);
+    const callTargetFunction = (req: Request) => {
+      config
+        .target(req)
+        .then(funcResult => {
+          funcResult = config.decorator(funcResult, config.links, req);
+
+          const emptyReturn = funcResult === null || funcResult === undefined; // eslint-disable-line id-blacklist
+          if (
+            emptyReturn &&
+            req.httpMethod === 'GET' &&
+            config.outputType === 'document'
+          ) {
+            resolve(response.notFound());
+          } else if (
+            emptyReturn &&
+            ['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.httpMethod) &&
+            config.outputType === 'document'
+          ) {
+            resolve(response.noContent());
+          } else {
             resolve(response.ok(funcResult));
-          })
-          .catch(error => {
-            logger.log('An error was caught from target function', error);
-            resolve(response.internalServerError(error));
-          });
-      })
+          }
+        })
+        .catch(error => {
+          logger.log('An error was caught from target function', error);
+          resolve(response.internalServerError(error));
+        });
+    };
+
+    validateRequest(request, config.validators)
+      .then(callTargetFunction)
       .catch(error => {
         logger.log(
           'the request did not pass the validations, returning invalid request',
           error
         );
         resolve(
-          response.badRequest({
+          response.preconditionFailed({
             message: 'Invalid request',
             rootCause: error
           })

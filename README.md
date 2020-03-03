@@ -138,10 +138,10 @@ module.exports.get = api.document({
 - `links` `<Object>` *(Optional)*: When provided will add links (HATEOAS) for each document returned.
 - `target` `<Function>` *(Required)*: Indicates the function that will handle the incoming normalized requests.
 - `validators` `<Joi.ObjectSchema>` *(Optional)*: Optional validation to be applied before the incoming request reach the target function, when invalid a `HTTP 400` is returned.
-  - `body` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request body.
-  - `headers` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request headers.
-  - `pathParameters` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request pathParameters.
-  - `queryStringParameters` `<Joi.ObjectSchema>` *(Optional)* Joi Schema to validate the request queryStringParameters.
+  - `body` `<Joi.ObjectSchema>` *(Optional)*; Joi Schema to validate the request body.
+  - `headers` `<Joi.ObjectSchema>` *(Optional)*: Joi Schema to validate the request headers.
+  - `pathParameters` `<Joi.ObjectSchema>` *(Optional)*: Joi Schema to validate the request pathParameters.
+  - `queryParameters` `<Joi.ObjectSchema>` *(Optional)*: Joi Schema to validate the request queryParameters.
 
 ## Logging
 By default, all logging messages are surpressed. You can optionally activate them as follows:
@@ -213,7 +213,13 @@ If you are implementing any vendor not supported yet by `@cloudifyjs/restful`, f
 | 12.x | **Yes**   | 
 | 11.x | **Yes**   | 
 | 10.x | **Yes** | 
-| 8.x  | **Yes** | 
+| 8.x  | **Yes** |
+
+## Documentation
+
+Please see the [files in the `docs` directory](./docs):
+
+* [HTTP Status Codes](./docs/01-HTTP-Status-Codes.md)
 
 ## License
 

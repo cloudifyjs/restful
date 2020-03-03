@@ -6,44 +6,91 @@ import { validateRequest } from './validation';
 test('it should validate event', async t => {
   const testCases = [
     {
-      request: {},
-      validators: {}
-    },
-    {
-      request: { headers: { accept: 'application/json' } },
-      validators: {}
-    },
-    {
-      request: { body: {} },
-      validators: {}
-    },
-    {
       request: {
-        queryParameters: { id: '123' },
-        pathParameters: { expand: true }
+        headers: {},
+        httpMethod: 'GET',
+        path: '/',
+        pathParameters: {},
+        queryParameters: {}
       },
       validators: {}
     },
     {
-      request: { pathParameters: { id: '123' } },
+      request: {
+        headers: { accept: 'application/json' },
+        httpMethod: 'GET',
+        path: '/',
+        pathParameters: {},
+        queryParameters: {}
+      },
+      validators: {}
+    },
+    {
+      request: {
+        body: {},
+        headers: {},
+        httpMethod: 'PUT',
+        path: '/',
+        pathParameters: {},
+        queryParameters: {}
+      },
+      validators: {}
+    },
+    {
+      request: {
+        headers: {},
+        httpMethod: 'GET',
+        path: '/',
+        pathParameters: { expand: 'true' },
+        queryParameters: { id: '123' }
+      },
+      validators: {}
+    },
+    {
+      request: {
+        headers: {},
+        httpMethod: 'GET',
+        path: '/',
+        pathParameters: { id: '123' },
+        queryParameters: {}
+      },
       validators: {
         pathParameters: Joi.object({ id: Joi.number().required() })
       }
     },
     {
-      request: { queryParameters: { expand: 'true' } },
+      request: {
+        headers: {},
+        httpMethod: 'GET',
+        path: '/',
+        pathParameters: {},
+        queryParameters: { expand: 'true' }
+      },
       validators: {
         queryParameters: Joi.object({ expand: Joi.string().required() })
       }
     },
     {
-      request: { headers: { authorication: 'Basic user:pass' } },
+      request: {
+        headers: { authorication: 'Basic user:pass' },
+        httpMethod: 'GET',
+        path: '/',
+        pathParameters: {},
+        queryParameters: {}
+      },
       validators: {
         headers: Joi.object({ authorication: Joi.string().required() })
       }
     },
     {
-      request: { body: { text: 'New item', checked: true } },
+      request: {
+        body: { text: 'New item', checked: true },
+        headers: {},
+        httpMethod: 'POST',
+        path: '/',
+        pathParameters: {},
+        queryParameters: {}
+      },
       validators: {
         body: Joi.object({
           text: Joi.string().required(),
@@ -52,7 +99,13 @@ test('it should validate event', async t => {
       }
     },
     {
-      request: { queryParameters: {} },
+      request: {
+        headers: {},
+        httpMethod: 'GET',
+        path: '/',
+        pathParameters: {},
+        queryParameters: {}
+      },
       validators: { queryParameters: Joi.object({ expand: Joi.boolean() }) }
     }
   ];
@@ -67,21 +120,40 @@ test('it should validate event', async t => {
 test('it should throw a validation error', async t => {
   const testCases = [
     {
-      request: { pathParameters: { id: '123' } },
+      request: {
+        headers: {},
+        httpMethod: 'GET',
+        path: '/',
+        pathParameters: { id: '123' },
+        queryParameters: {}
+      },
       validators: {
         pathParameters: Joi.object({ id: Joi.boolean().required() })
       },
       message: '"pathParameters.id" must be a boolean'
     },
     {
-      request: { queryParameters: {} },
+      request: {
+        headers: {},
+        httpMethod: 'GET',
+        path: '/',
+        pathParameters: {},
+        queryParameters: {}
+      },
       validators: {
         queryParameters: Joi.object({ id: Joi.string().required() })
       },
       message: '"queryParameters.id" is required'
     },
     {
-      request: { body: { checked: true } },
+      request: {
+        body: { checked: true },
+        headers: {},
+        httpMethod: 'POST',
+        path: '/',
+        pathParameters: {},
+        queryParameters: {}
+      },
       validators: {
         body: Joi.object({
           text: Joi.string().required(),
