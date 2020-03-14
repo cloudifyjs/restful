@@ -61,7 +61,7 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@hapi/joi": "^17.1.0",
+    "@hapi/joi": "^17.1.1",
     "es6-template-strings": "^2.0.1"
   },
   "devDependencies": {
@@ -69,14 +69,14 @@
     "@bitjson/typedoc": "^0.15.0-0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/async": "^3.0.8",
-    "@types/hapi__joi": "^16.0.11",
+    "@types/hapi__joi": "^16.0.12",
     "@types/joi": "^14.3.4",
-    "@types/node": "^13.7.4",
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
-    "@typescript-eslint/eslint-plugin-tslint": "^2.20.0",
-    "@typescript-eslint/parser": "^2.20.0",
+    "@types/node": "^13.9.1",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
     "async": "^3.2.0",
-    "ava": "^3.4.0",
+    "ava": "^3.5.0",
     "codecov": "^3.5.0",
     "cz-conventional-changelog": "^3.1.0",
     "eslint": "^6.8.0",
@@ -90,8 +90,8 @@
     "prettier": "^1.18.2",
     "standard-version": "^7.1.0",
     "trash-cli": "^3.0.0",
-    "tslint": "^6.0.0",
-    "typescript": "^3.5.3"
+    "tslint": "^6.1.0",
+    "typescript": "^3.8.3"
   },
   "peerDependencies": {
     "@hapi/joi": "^17.1.0"
