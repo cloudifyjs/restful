@@ -104,6 +104,9 @@
 				<a href="#apidocumentrequest" id="apidocumentrequest" style="color: inherit; text-decoration: none;">
 					<h3>api.document(request)</h3>
 				</a>
+				<blockquote>
+					<p>From restfulapi.net: <em>A document resource is a singular concept that is akin to an object instance or database record. In REST, you can view it as a single resource inside resource collection. A document’s state representation typically includes both fields with values and links to other related resources.</em></p>
+				</blockquote>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>).api
 
 <span class="hljs-comment">// GET /cars/{id}</span>
@@ -128,6 +131,9 @@ Content-Type: application/json
 				<a href="#apicollectionrequest" id="apicollectionrequest" style="color: inherit; text-decoration: none;">
 					<h3>api.collection(request)</h3>
 				</a>
+				<blockquote>
+					<p>From restfulapi.net: <em>A collection resource is a server-managed directory of resources. Clients may propose new resources to be added to a collection. However, it is up to the collection to choose to create a new resource or not. A collection resource chooses what it wants to contain and also decides the URIs of each contained resource.</em></p>
+				</blockquote>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@cloudifyjs/restful'</span>).api
 
 <span class="hljs-comment">// GET /cars</span>
