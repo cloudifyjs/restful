@@ -20,11 +20,9 @@ export const eventHandlerFactory = (
 
     const { request, resolve, reject } = vendors.translate.apply(null, [
       config.vendor,
-      ...args
+      ...args,
     ]);
 
-    requestHandler(config, request)
-      .then(resolve)
-      .catch(reject);
+    requestHandler(config, request).then(resolve).catch(reject);
   };
 };

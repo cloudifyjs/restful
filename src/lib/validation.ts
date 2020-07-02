@@ -26,9 +26,7 @@ export const validateRequest = async (
   if (validators.body) validators.body = validators.body.required();
 
   try {
-    await Joi.object(validators)
-      .unknown(true)
-      .validateAsync(request);
+    await Joi.object(validators).unknown(true).validateAsync(request);
 
     return request;
   } catch (error) {

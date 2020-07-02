@@ -3,12 +3,12 @@ import test from 'ava';
 import { document } from './document';
 import * as Joi from '@hapi/joi';
 
-test('it should return an event handler', t => {
+test('it should return an event handler', (t) => {
   const handler = document({ target: async () => ({}) });
   t.truthy(handler);
 });
 
-test('it should throw an invalid configuration', t => {
+test('it should throw an invalid configuration', (t) => {
   t.plan(1);
   t.throws(
     () => {
@@ -18,7 +18,7 @@ test('it should throw an invalid configuration', t => {
   );
 });
 
-test.cb('it should handle event correctly', t => {
+test.cb('it should handle event correctly', (t) => {
   const targetResult = {};
   const handler = document({ target: async () => targetResult });
   t.plan(1);
@@ -31,22 +31,22 @@ test.cb('it should handle event correctly', t => {
     t.deepEqual(result, {
       body: JSON.stringify(targetResult),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      statusCode: 200
+      statusCode: 200,
     });
     t.end();
   });
 });
 
-test.cb('it should decorate response object with HATEOS links', t => {
+test.cb('it should decorate response object with HATEOS links', (t) => {
   const targetResult = { id: '123' };
   const decoratedReponse = {
     id: '123',
     links: [
       { href: '/todos/123', rel: 'self', type: 'GET' },
-      { href: '/todos/123/views', rel: 'views', type: 'GET' }
-    ]
+      { href: '/todos/123/views', rel: 'views', type: 'GET' },
+    ],
   };
   t.plan(1);
   const handler = document({
@@ -54,13 +54,13 @@ test.cb('it should decorate response object with HATEOS links', t => {
     links: {
       self: {
         type: 'GET',
-        href: '${request.path}'
+        href: '${request.path}',
       },
       views: {
         type: 'GET',
-        href: '${request.path}/views'
-      }
-    }
+        href: '${request.path}/views',
+      },
+    },
   });
 
   handler(
@@ -74,16 +74,16 @@ test.cb('it should decorate response object with HATEOS links', t => {
       t.deepEqual(result, {
         body: JSON.stringify(decoratedReponse),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        statusCode: 200
+        statusCode: 200,
       });
       t.end();
     }
   );
 });
 
-test.cb('it should handle event body properly', t => {
+test.cb('it should handle event body properly', (t) => {
   const targetResult = {};
   const handler = document({ target: async () => targetResult });
   t.plan(1);
@@ -92,7 +92,7 @@ test.cb('it should handle event body properly', t => {
       httpMethod: 'POST',
       requestContext: {},
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({})
+      body: JSON.stringify({}),
     },
     {},
     (error, result) => {
@@ -103,20 +103,20 @@ test.cb('it should handle event body properly', t => {
       t.deepEqual(result, {
         body: JSON.stringify(targetResult),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        statusCode: 200
+        statusCode: 200,
       });
       t.end();
     }
   );
 });
 
-test.cb('it should return an HTTP 415', t => {
+test.cb('it should return an HTTP 415', (t) => {
   const targetResult = {};
   const handler = document({
     target: async () => targetResult,
-    consumes: ['text/json']
+    consumes: ['text/json'],
   });
   t.plan(1);
 
@@ -125,7 +125,7 @@ test.cb('it should return an HTTP 415', t => {
       httpMethod: 'PUT',
       requestContext: {},
       headers: { 'content-type': 'application/json' },
-      body: null
+      body: null,
     },
     {},
     (error, result) => {
@@ -135,23 +135,23 @@ test.cb('it should return an HTTP 415', t => {
       }
       t.deepEqual(result, {
         body: JSON.stringify({
-          message: 'Unsupported Media type application/json'
+          message: 'Unsupported Media type application/json',
         }),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        statusCode: 415
+        statusCode: 415,
       });
       t.end();
     }
   );
 });
 
-test.cb('it should return an HTTP 400 (invalid body)', t => {
+test.cb('it should return an HTTP 400 (invalid body)', (t) => {
   const targetResult = {};
   const handler = document({
     target: async () => targetResult,
-    consumes: ['text/json']
+    consumes: ['text/json'],
   });
   t.plan(1);
 
@@ -160,7 +160,7 @@ test.cb('it should return an HTTP 400 (invalid body)', t => {
       httpMethod: 'PUT',
       requestContext: {},
       headers: { 'content-type': 'text/json' },
-      body: '{invalid json'
+      body: '{invalid json',
     },
     {},
     (error, result) => {
@@ -172,26 +172,26 @@ test.cb('it should return an HTTP 400 (invalid body)', t => {
       t.deepEqual(result, {
         body: JSON.stringify({
           message: 'Invalid request body',
-          rootCause: {}
+          rootCause: {},
         }),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        statusCode: 400
+        statusCode: 400,
       });
       t.end();
     }
   );
 });
 
-test.cb('it should return an HTTP 412 (validation error)', t => {
+test.cb('it should return an HTTP 412 (validation error)', (t) => {
   const targetResult = {};
   const handler = document({
     target: async () => targetResult,
     consumes: ['text/json'],
     validators: {
-      body: Joi.object({ text: Joi.string().required() }).unknown(true)
-    }
+      body: Joi.object({ text: Joi.string().required() }).unknown(true),
+    },
   });
   t.plan(1);
 
@@ -200,7 +200,7 @@ test.cb('it should return an HTTP 412 (validation error)', t => {
       httpMethod: 'PUT',
       requestContext: {},
       headers: { 'content-type': 'text/json' },
-      body: JSON.stringify({ checked: true })
+      body: JSON.stringify({ checked: true }),
     },
     {},
     (error, result) => {
@@ -217,30 +217,30 @@ test.cb('it should return an HTTP 412 (validation error)', t => {
                 message: '"body.text" is required',
                 path: ['body', 'text'],
                 type: 'any.required',
-                context: { label: 'body.text', key: 'text' }
-              }
-            ]
-          }
+                context: { label: 'body.text', key: 'text' },
+              },
+            ],
+          },
         }),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        statusCode: 412
+        statusCode: 412,
       });
       t.end();
     }
   );
 });
 
-test.cb('it should return an HTTP 500', t => {
+test.cb('it should return an HTTP 500', (t) => {
   const handler = document({
     target: async () => {
       throw Error('Unhandled application error');
     },
     consumes: ['text/json'],
     validators: {
-      body: Joi.object({ text: Joi.string().required() }).unknown(true)
-    }
+      body: Joi.object({ text: Joi.string().required() }).unknown(true),
+    },
   });
   t.plan(1);
 
@@ -249,7 +249,7 @@ test.cb('it should return an HTTP 500', t => {
       httpMethod: 'PUT',
       requestContext: {},
       headers: { 'content-type': 'text/json' },
-      body: JSON.stringify({ text: 'new item', checked: true })
+      body: JSON.stringify({ text: 'new item', checked: true }),
     },
     {},
     (error, result) => {
@@ -260,9 +260,9 @@ test.cb('it should return an HTTP 500', t => {
       t.deepEqual(result, {
         body: JSON.stringify({ message: 'Unhandled application error' }),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        statusCode: 500
+        statusCode: 500,
       });
       t.end();
     }

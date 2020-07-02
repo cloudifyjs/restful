@@ -4,14 +4,14 @@ import { autoDetect, translate } from './vendors';
 
 const ntest = ninos(test);
 
-test('it should return correct vendor', t => {
+test('it should return correct vendor', (t) => {
   t.plan(3);
   t.is(autoDetect(), 'aws'); // default
   t.is(autoDetect({}), 'aws');
   t.is(autoDetect({ headers: { 'x-cloud-trace-context': 'xxxx' } }), 'google');
 });
 
-ntest('it should translate google call to request', t => {
+ntest('it should translate google call to request', (t) => {
   t.plan(13);
 
   const setStub = t.context.stub();
@@ -21,12 +21,12 @@ ntest('it should translate google call to request', t => {
   const { request, resolve, reject } = translate(
     'google',
     {
-      headers: { 'x-cloud-trace-context': 'xxxx' }
+      headers: { 'x-cloud-trace-context': 'xxxx' },
     },
     {
       set: setStub,
       status: statusStub,
-      send: sendStub
+      send: sendStub,
     }
   );
 
@@ -52,7 +52,7 @@ ntest('it should translate google call to request', t => {
   t.is(sendStub.calls[1].arguments[0], 'Internal Server error');
 });
 
-ntest('it should translate aws call to request', t => {
+ntest('it should translate aws call to request', (t) => {
   t.plan(8);
 
   const awsEventCallBack = t.context.stub();
