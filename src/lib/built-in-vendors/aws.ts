@@ -18,16 +18,16 @@ export default (...args: any[]) => {
       httpMethod: event.httpMethod,
       path: event.requestContext.path || event.path,
       pathParameters: event.pathParameters,
-      queryParameters: event.queryStringParameters
+      queryParameters: event.queryStringParameters,
     },
 
-    resolve: result => {
+    resolve: (result) => {
       awsEventCallBack(null, result);
     },
 
-    reject: error => {
+    reject: (error) => {
       logger.log(error);
       awsEventCallBack(error);
-    }
+    },
   };
 };

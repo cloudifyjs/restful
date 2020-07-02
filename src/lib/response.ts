@@ -10,23 +10,23 @@ export const bodyDecorator = (result: any, links, request) => {
 
   if (isObject && !isArray && hasLinks) {
     result.links = [];
-    keyLinks.forEach(key => {
+    keyLinks.forEach((key) => {
       result.links.push({
         href: template(links[key].href, { item: result, request }),
         rel: key,
-        type: links[key].type
+        type: links[key].type,
       });
     });
   }
 
   if (isObject && isArray && hasLinks) {
-    result.forEach(item => {
+    result.forEach((item) => {
       item.links = [];
-      keyLinks.forEach(key => {
+      keyLinks.forEach((key) => {
         item.links.push({
           href: template(links[key].href, { item, request }),
           rel: key,
-          type: links[key].type
+          type: links[key].type,
         });
       });
     });
@@ -39,9 +39,9 @@ export const unsupportedMediaType = (message: string): any => {
   return {
     body: JSON.stringify({ message }),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    statusCode: 415
+    statusCode: 415,
   };
 };
 
@@ -49,9 +49,9 @@ export const unsupportedMethod = (method: string): any => {
   return {
     body: JSON.stringify({ message: `Method Not Allowed: ${method}` }),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    statusCode: 405
+    statusCode: 405,
   };
 };
 
@@ -59,9 +59,9 @@ export const badRequest = (error): any => {
   return {
     body: JSON.stringify(error),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    statusCode: 400
+    statusCode: 400,
   };
 };
 
@@ -69,9 +69,9 @@ export const preconditionFailed = (error): any => {
   return {
     body: JSON.stringify(error),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    statusCode: 412
+    statusCode: 412,
   };
 };
 
@@ -79,9 +79,9 @@ export const ok = (payload: any): any => {
   return {
     body: JSON.stringify(payload),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    statusCode: 200
+    statusCode: 200,
   };
 };
 
@@ -89,10 +89,10 @@ export const internalServerError = (error: any): any => {
   return {
     body: JSON.stringify({ message: error.message }),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
 
-    statusCode: 500
+    statusCode: 500,
   };
 };
 
@@ -100,9 +100,9 @@ export const notFound = (): any => {
   return {
     body: '',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    statusCode: 404
+    statusCode: 404,
   };
 };
 
@@ -110,8 +110,8 @@ export const noContent = (): any => {
   return {
     body: '',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    statusCode: 204
+    statusCode: 204,
   };
 };

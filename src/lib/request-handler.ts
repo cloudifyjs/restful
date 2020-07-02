@@ -7,7 +7,7 @@ import { logger } from './logger';
 export const requestHandler = (config: WrapperConfig, request) => {
   config.decorator = config.decorator || response.bodyDecorator;
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     if (!config.supportedMethods.includes(request.httpMethod)) {
       resolve(response.unsupportedMethod(request.httpMethod));
       return;
@@ -25,7 +25,7 @@ export const requestHandler = (config: WrapperConfig, request) => {
           resolve(
             response.badRequest({
               message: 'Invalid request body',
-              rootCause: error
+              rootCause: error,
             })
           );
           return;
@@ -36,7 +36,7 @@ export const requestHandler = (config: WrapperConfig, request) => {
     const callTargetFunction = (req: Request) => {
       config
         .target(req)
-        .then(funcResult => {
+        .then((funcResult) => {
           funcResult = config.decorator(funcResult, config.links, req);
 
           const emptyReturn = funcResult === null || funcResult === undefined; // eslint-disable-line id-blacklist
@@ -56,7 +56,7 @@ export const requestHandler = (config: WrapperConfig, request) => {
             resolve(response.ok(funcResult));
           }
         })
-        .catch(error => {
+        .catch((error) => {
           logger.log('An error was caught from target function', error);
           resolve(response.internalServerError(error));
         });
@@ -64,7 +64,7 @@ export const requestHandler = (config: WrapperConfig, request) => {
 
     validateRequest(request, config.validators)
       .then(callTargetFunction)
-      .catch(error => {
+      .catch((error) => {
         logger.log(
           'the request did not pass the validations, returning invalid request',
           error
@@ -72,7 +72,7 @@ export const requestHandler = (config: WrapperConfig, request) => {
         resolve(
           response.preconditionFailed({
             message: 'Invalid request',
-            rootCause: error
+            rootCause: error,
           })
         );
       });

@@ -1,6 +1,6 @@
 const headerValue = (request: any, header): string => {
   const headerKey = Object.keys(request.headers).find(
-    key => key.toLowerCase() === header
+    (key) => key.toLowerCase() === header
   );
   return request.headers[headerKey];
 };
