@@ -12,19 +12,19 @@ export default (...args: any[]) => {
       httpMethod: req.method,
       path: req.originalUrl,
       pathParameters: req.params,
-      queryParameters: req.query
+      queryParameters: req.query,
     },
 
-    resolve: result => {
+    resolve: (result) => {
       resp.set(result.headers);
       resp.status(result.statusCode);
       resp.send(result.body);
     },
 
-    reject: error => {
+    reject: (error) => {
       logger.log(error);
       resp.status(500);
       resp.send('Internal Server error');
-    }
+    },
   };
 };

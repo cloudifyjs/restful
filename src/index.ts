@@ -5,7 +5,7 @@ import * as v from './lib/vendors';
 
 export const api = {
   collection,
-  document
+  document,
 };
 
 export const logger = l.logger;
