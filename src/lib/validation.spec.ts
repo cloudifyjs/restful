@@ -3,7 +3,7 @@ import async from 'async';
 import * as Joi from '@hapi/joi';
 import { validateRequest } from './validation';
 
-test('it should validate event', async t => {
+test('it should validate event', async (t) => {
   const testCases = [
     {
       request: {
@@ -11,9 +11,9 @@ test('it should validate event', async t => {
         httpMethod: 'GET',
         path: '/',
         pathParameters: {},
-        queryParameters: {}
+        queryParameters: {},
       },
-      validators: {}
+      validators: {},
     },
     {
       request: {
@@ -21,9 +21,9 @@ test('it should validate event', async t => {
         httpMethod: 'GET',
         path: '/',
         pathParameters: {},
-        queryParameters: {}
+        queryParameters: {},
       },
-      validators: {}
+      validators: {},
     },
     {
       request: {
@@ -32,9 +32,9 @@ test('it should validate event', async t => {
         httpMethod: 'PUT',
         path: '/',
         pathParameters: {},
-        queryParameters: {}
+        queryParameters: {},
       },
-      validators: {}
+      validators: {},
     },
     {
       request: {
@@ -42,9 +42,9 @@ test('it should validate event', async t => {
         httpMethod: 'GET',
         path: '/',
         pathParameters: { expand: 'true' },
-        queryParameters: { id: '123' }
+        queryParameters: { id: '123' },
       },
-      validators: {}
+      validators: {},
     },
     {
       request: {
@@ -52,11 +52,11 @@ test('it should validate event', async t => {
         httpMethod: 'GET',
         path: '/',
         pathParameters: { id: '123' },
-        queryParameters: {}
+        queryParameters: {},
       },
       validators: {
-        pathParameters: Joi.object({ id: Joi.number().required() })
-      }
+        pathParameters: Joi.object({ id: Joi.number().required() }),
+      },
     },
     {
       request: {
@@ -64,11 +64,11 @@ test('it should validate event', async t => {
         httpMethod: 'GET',
         path: '/',
         pathParameters: {},
-        queryParameters: { expand: 'true' }
+        queryParameters: { expand: 'true' },
       },
       validators: {
-        queryParameters: Joi.object({ expand: Joi.string().required() })
-      }
+        queryParameters: Joi.object({ expand: Joi.string().required() }),
+      },
     },
     {
       request: {
@@ -76,11 +76,11 @@ test('it should validate event', async t => {
         httpMethod: 'GET',
         path: '/',
         pathParameters: {},
-        queryParameters: {}
+        queryParameters: {},
       },
       validators: {
-        headers: Joi.object({ authorication: Joi.string().required() })
-      }
+        headers: Joi.object({ authorication: Joi.string().required() }),
+      },
     },
     {
       request: {
@@ -89,14 +89,14 @@ test('it should validate event', async t => {
         httpMethod: 'POST',
         path: '/',
         pathParameters: {},
-        queryParameters: {}
+        queryParameters: {},
       },
       validators: {
         body: Joi.object({
           text: Joi.string().required(),
-          checked: Joi.boolean().required()
-        })
-      }
+          checked: Joi.boolean().required(),
+        }),
+      },
     },
     {
       request: {
@@ -104,20 +104,20 @@ test('it should validate event', async t => {
         httpMethod: 'GET',
         path: '/',
         pathParameters: {},
-        queryParameters: {}
+        queryParameters: {},
       },
-      validators: { queryParameters: Joi.object({ expand: Joi.boolean() }) }
-    }
+      validators: { queryParameters: Joi.object({ expand: Joi.boolean() }) },
+    },
   ];
 
-  await async.each(testCases, async item => {
+  await async.each(testCases, async (item) => {
     await t.notThrowsAsync(async () => {
       await validateRequest(item.request, item.validators);
     });
   });
 });
 
-test('it should throw a validation error', async t => {
+test('it should throw a validation error', async (t) => {
   const testCases = [
     {
       request: {
@@ -125,12 +125,12 @@ test('it should throw a validation error', async t => {
         httpMethod: 'GET',
         path: '/',
         pathParameters: { id: '123' },
-        queryParameters: {}
+        queryParameters: {},
       },
       validators: {
-        pathParameters: Joi.object({ id: Joi.boolean().required() })
+        pathParameters: Joi.object({ id: Joi.boolean().required() }),
       },
-      message: '"pathParameters.id" must be a boolean'
+      message: '"pathParameters.id" must be a boolean',
     },
     {
       request: {
@@ -138,12 +138,12 @@ test('it should throw a validation error', async t => {
         httpMethod: 'GET',
         path: '/',
         pathParameters: {},
-        queryParameters: {}
+        queryParameters: {},
       },
       validators: {
-        queryParameters: Joi.object({ id: Joi.string().required() })
+        queryParameters: Joi.object({ id: Joi.string().required() }),
       },
-      message: '"queryParameters.id" is required'
+      message: '"queryParameters.id" is required',
     },
     {
       request: {
@@ -152,19 +152,19 @@ test('it should throw a validation error', async t => {
         httpMethod: 'POST',
         path: '/',
         pathParameters: {},
-        queryParameters: {}
+        queryParameters: {},
       },
       validators: {
         body: Joi.object({
           text: Joi.string().required(),
-          checked: Joi.boolean()
-        })
+          checked: Joi.boolean(),
+        }),
       },
-      message: '"body.text" is required'
-    }
+      message: '"body.text" is required',
+    },
   ];
 
-  await async.each(testCases, async item => {
+  await async.each(testCases, async (item) => {
     await t.throwsAsync(
       async () => {
         await validateRequest(item.request, item.validators);
