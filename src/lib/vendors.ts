@@ -3,7 +3,7 @@ import aws from './built-in-vendors/aws';
 
 export const vendors = {
   aws,
-  google
+  google,
 };
 
 export const autoDetect = (...args: any[]) => {

@@ -5,5 +5,5 @@ export const logger = {
   debug: noop,
   info: noop,
   error: noop,
-  warn: noop
+  warn: noop,
 };
