@@ -5,7 +5,7 @@ import * as vendors from './vendors';
 export const eventHandlerFactory = (
   config: WrapperConfig,
   supportedMethods: string[]
-): Function => {
+) => {
   if (!config.target || typeof config.target !== 'function') {
     throw new Error('Invalid event configuration (target not found)');
   }
